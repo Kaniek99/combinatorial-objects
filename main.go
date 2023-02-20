@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	mainWindow := windows.WindowConfig{}
-	mainWindow.Run()
+	main := windows.MainWindow{Width: 1280, Hight: 720}
+	main.Run()
 }

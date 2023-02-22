@@ -30,7 +30,7 @@ func (mainWindow *MainWindow) Run() {
 
 	button1 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
 	button2 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
-	button3 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
+	button3 := widget.NewButton("Generate combinations of n-set", func() { log.Println("not implemented yet") })
 	button4 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
 	button5 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
 	button6 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })

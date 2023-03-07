@@ -35,19 +35,13 @@ func (mainWindow *MainWindow) Run() {
 	button5 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
 	button6 := widget.NewButton("not implemented yet", func() { log.Println("not implemented yet") })
 
-	menu := container.NewGridWithRows(6, button1, button2, button3, button4, button5, button6)
+	menu := container.NewGridWithRows(7, header, button1, button2, button3, button4, button5, button6)
 
-	output := canvas.NewText("content here", color.Black)       // how should I change position of this text
-	rect := canvas.NewRectangle(color.RGBA{235, 232, 233, 255}) // 224,224,224
-
-	middle := container.New(layout.NewMaxLayout(), rect, output)
 	// output.Move(fyne.NewPos(10, 10))
-
-	content := container.NewBorder(header, nil /* footer */, menu, nil /* RHS */, middle)
 
 	window := app.NewWindow("Generating Combinatorial Objects")
 
 	window.Resize(fyne.NewSize(mainWindow.Width, mainWindow.Hight))
-	window.SetContent(content)
+	window.SetContent(menu)
 	window.ShowAndRun()
 }

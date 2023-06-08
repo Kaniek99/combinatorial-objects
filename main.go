@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fyne.io/fyne/v2/app"
+
 	"kaniek99/combinatorial-objects/internal/gui/windows"
 )
 
 func main() {
-	main := windows.MainWindow{Width: 1280, Hight: 720}
+	app := app.New()
+	main := windows.MainWindow{Width: 320, Hight: 720, Application: &app}
 	main.Run()
 }

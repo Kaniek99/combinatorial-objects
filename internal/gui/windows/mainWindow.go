@@ -3,8 +3,8 @@ package windows
 import (
 	"fmt"
 	"image/color"
-	"kaniek99/combinatorial-objects/internal/logic/combinations"
 	"kaniek99/combinatorial-objects/internal/logic/permutations"
+	"kaniek99/combinatorial-objects/internal/logic/set"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -26,7 +26,7 @@ func (mainWindow *MainWindow) Run() {
 
 	button1 := widget.NewButton("Generate all permutations on n-set", func() { mainWindow.PermutationsButton() })
 	button2 := widget.NewButton("Generate permutation with inversion sequence", func() { mainWindow.PermutationFromInversionSequenceButton() })
-	button3 := widget.NewButton("Generate all ombinations of n-set", func() { mainWindow.CombinationsButton() })
+	button3 := widget.NewButton("Generate all combinations of n-set", func() { mainWindow.CombinationsButton() })
 
 	menu := container.NewGridWithRows(4, header, button1, button2, button3)
 
@@ -49,20 +49,17 @@ func (window *MainWindow) RunErrorWindow(errormessage string) {
 func (window *MainWindow) CombinationsButton() {
 	entryWindow := (*window.Application).NewWindow("EntryWidget")
 	input := widget.NewEntry()
-	input.SetPlaceHolder("Enter cardinality of set")
+	input.SetPlaceHolder("Insert elements of the set here. Numbers should be separated with a comma and a space e.g. 3, 2, 1, 0")
 
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
-		Set, err := combinations.GenerateSet(input.Text)
+		Set, err := set.GenerateSet(input.Text)
 		if err != nil {
 			window.RunErrorWindow(fmt.Sprintf("%v", err)) // why did I do it this way instead of passing error? Fix it in the future
 			return
 		}
-		Set.GenerateSubsets()
-		usedSet := Set.GetSet()
-		combinations := Set.GetCombinations()
-		fmt.Println("Combinations of: " + usedSet)
-		fmt.Println(combinations)
-		fmt.Println(len(Set.Subsets))
+		Set.GenerateCombinations()
+		fmt.Println("Combinations of inserted set: ")
+		fmt.Println(Set.Combinations)
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)
@@ -72,7 +69,7 @@ func (window *MainWindow) CombinationsButton() {
 func (window *MainWindow) PermutationFromInversionSequenceButton() {
 	entryWindow := (*window.Application).NewWindow("EntryWidget")
 	input := widget.NewEntry()
-	input.SetPlaceHolder("Enter inversion sequence here. Numbers should be separated with a coma and a space e.g. 3, 2, 1, 0")
+	input.SetPlaceHolder("Insert elements of the set here. Numbers should be separated with a comma and a space e.g. 3, 2, 1, 0")
 
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
 		invSeq, err := permutations.CreateInversionSequence(input.Text)

@@ -95,64 +95,9 @@ func (window *MainWindow) PermutationsButton() {
 			window.RunErrorWindow(fmt.Sprintf("%v", err))
 			return
 		}
-
-		// set := permutations.NumericSet{Elems: []int{1, 2, 3}}
-		// set.CreateFirstDirectedPermutation()
-		// fmt.Println(len(set.Permutations))
-		// perm := set.Permutations[0] // 1, 2, 3
-		// index, err := perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index) // 2
-		// perm = perm.Swap(index, perm[index]) // 1, 3, 2
-		// set.Permutations = append(set.Permutations, perm)
-		// fmt.Println(len(set.Permutations))
-		// index, err = perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index) // 1
-		// perm = perm.Swap(index, perm[index]) // 3, 1, 2
-		// set.Permutations = append(set.Permutations, perm)
-		// fmt.Println(len(set.Permutations))
-		// index, err = perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index) // 2
-		// fmt.Println(perm[0].Direction)
-		// perm = perm.Swap(index, perm[index]) // 3, 2, 1
-		// set.Permutations = append(set.Permutations, perm)
-		// fmt.Println(len(set.Permutations))
-		// index, err = perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index)
-		// perm = perm.Swap(index, perm[index]) // 2, 3, 1
-		// set.Permutations = append(set.Permutations, perm)
-		// fmt.Println(len(set.Permutations))
-		// index, err = perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index)
-		// perm = perm.Swap(index, perm[index]) // 2, 1, 3
-		// set.Permutations = append(set.Permutations, perm)
-		// fmt.Println(len(set.Permutations))
-		// index, err = perm.FindIndexOfGreatestMobileNumber()
-		// if err != nil {
-		// 	fmt.Println("err")
-		// }
-		// fmt.Println(index)
-
-		fmt.Println("test")
 		set.GenerateAllPermutations()
-		fmt.Println("test2")
-		// fmt.Println(set.GetPermutationsAsString())
 		fmt.Println(set.Permutations)
-		fmt.Println(len(set.Permutations))
+		fmt.Printf("%v permutations generated", len(set.Permutations))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)

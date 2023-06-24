@@ -133,7 +133,6 @@ func (set *Set) GenerateAllPermutations() {
 	perm := set.CreateFirstDirectedPermutation()
 	fact := Factorial(set.Cardinality)
 	for i := 1; i < fact; i++ {
-		fmt.Println(set.Permutations)
 		index, err := perm.FindIndexOfGreatestMobileNumber()
 		if err != nil {
 			fmt.Println("???")

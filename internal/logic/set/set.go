@@ -71,17 +71,14 @@ func (perm *DirectedPermutation) IsMobile(i int) bool {
 }
 
 func (perm *DirectedPermutation) FindIndexOfGreatestMobileNumber() (int, error) {
-	anyMobile := false
 	indexOfGMNumber := -1
-	for !anyMobile {
-		for i := range *perm {
-			if perm.IsMobile(i) {
-				anyMobile = true
-				indexOfGMNumber = i
-			}
+	for i := range *perm {
+		if perm.IsMobile(i) {
+			indexOfGMNumber = i
+			break
 		}
 	}
-	if !anyMobile {
+	if indexOfGMNumber == -1 {
 		err := fmt.Errorf("there are no mobile numbers")
 		return indexOfGMNumber, err
 	}

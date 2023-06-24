@@ -3,7 +3,6 @@ package windows
 import (
 	"fmt"
 	"image/color"
-	"kaniek99/combinatorial-objects/internal/logic/permutations"
 	"kaniek99/combinatorial-objects/internal/logic/set"
 
 	"fyne.io/fyne/v2"
@@ -72,7 +71,7 @@ func (window *MainWindow) PermutationFromInversionSequenceButton() {
 	input.SetPlaceHolder("Insert elements of the set here. Numbers should be separated with a comma and a space e.g. 3, 2, 1, 0")
 
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
-		invSeq, err := permutations.CreateInversionSequence(input.Text)
+		invSeq, err := set.CreateInversionSequence(input.Text)
 		if err != nil {
 			window.RunErrorWindow(fmt.Sprintf("%v", err))
 			return
@@ -91,7 +90,7 @@ func (window *MainWindow) PermutationsButton() {
 	input.SetPlaceHolder("Insert elements of the set here. Numbers should be separated with a coma and a space e.g. 3, 2, 1, 0")
 
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
-		set, err := permutations.GenerateSet(input.Text)
+		set, err := set.GenerateSet(input.Text)
 		if err != nil {
 			window.RunErrorWindow(fmt.Sprintf("%v", err))
 			return
@@ -151,7 +150,9 @@ func (window *MainWindow) PermutationsButton() {
 		fmt.Println("test")
 		set.GenerateAllPermutations()
 		fmt.Println("test2")
-		fmt.Println(set.GetPermutationsAsString())
+		// fmt.Println(set.GetPermutationsAsString())
+		fmt.Println(set.Permutations)
+		fmt.Println(len(set.Permutations))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)

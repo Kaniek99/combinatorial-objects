@@ -24,7 +24,7 @@ func (mainWindow *MainWindow) Run() {
 	header := container.New(layout.NewCenterLayout(), headertxt)
 
 	button1 := widget.NewButton("Generate all permutations on n-set", func() { mainWindow.PermutationsButton() })
-	button2 := widget.NewButton("Generate permutation with inversion sequence", func() { mainWindow.PermutationFromInversionSequenceButton() })
+	button2 := widget.NewButton("Generate permutation from inversion sequence", func() { mainWindow.PermutationFromInversionSequenceButton() })
 	button3 := widget.NewButton("Generate all combinations of n-set", func() { mainWindow.CombinationsButton() })
 
 	menu := container.NewGridWithRows(4, header, button1, button2, button3)
@@ -51,14 +51,16 @@ func (window *MainWindow) CombinationsButton() {
 	input.SetPlaceHolder("Insert elements of the set here. Numbers should be separated with a comma and a space e.g. 3, 2, 1, 0")
 
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
-		Set, err := set.GenerateSet(input.Text)
+		set, err := set.GenerateSet(input.Text)
 		if err != nil {
 			window.RunErrorWindow(fmt.Sprintf("%v", err)) // why did I do it this way instead of passing error? Fix it in the future
 			return
 		}
-		Set.GenerateCombinations()
+		set.GenerateCombinations()
 		fmt.Println("Combinations of inserted set: ")
-		fmt.Println(Set.Combinations)
+		for _, combination := range set.Combinations {
+			fmt.Println(combination)
+		}
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)
@@ -96,8 +98,14 @@ func (window *MainWindow) PermutationsButton() {
 			return
 		}
 		set.GenerateAllPermutations()
-		fmt.Println(set.Permutations)
-		fmt.Printf("%v permutations generated", len(set.Permutations))
+		for _, permutation := range set.Permutations {
+			perm := []int{}
+			for _, elem := range permutation {
+				perm = append(perm, elem.Number)
+			}
+			fmt.Println(perm)
+		}
+		fmt.Printf("%v permutations generated\n", len(set.Permutations))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)

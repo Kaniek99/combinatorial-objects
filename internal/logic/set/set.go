@@ -35,9 +35,22 @@ func GenerateSet(input string) (Set, error) {
 		}
 		set.Elems = append(set.Elems, el)
 	}
+	set.UniqueElems()
 	sort.Ints(set.Elems)
 	set.Cardinality = len(set.Elems)
 	return set, nil
+}
+
+func (set *Set) UniqueElems() {
+	keys := make(map[int]bool)
+	elems := []int{}
+	for _, entry := range set.Elems {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			elems = append(elems, entry)
+		}
+	}
+	set.Elems = elems
 }
 
 // GenerateCombinations generates all combinations of a set using binary sequences

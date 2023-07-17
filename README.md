@@ -8,4 +8,4 @@ To run this app you need to clone this repository and run comand `go run .` insi
 
 # Planned features
 
-- generating all k-sets
+- generating all k-subsets

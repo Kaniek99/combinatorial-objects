@@ -37,12 +37,25 @@ func (mainWindow *MainWindow) Run() {
 	window.ShowAndRun()
 }
 
-func (window *MainWindow) RunErrorWindow(errormessage string) {
+func (window *MainWindow) RunErrorWindow(err error) {
 	errorWindow := (*window.Application).NewWindow("Error")
-	content := container.NewVBox(canvas.NewText(errormessage, color.Black), widget.NewButton("Ok", func() { errorWindow.Close() }))
+	errorMessage := fmt.Sprintf("%v", err)
+	content := container.NewVBox(canvas.NewText(errorMessage, color.Black), widget.NewButton("Ok", func() { errorWindow.Close() }))
 	errorWindow.Resize(fyne.NewSize(640, 100))
 	errorWindow.SetContent(content)
 	errorWindow.Show()
+}
+
+func (window *MainWindow) ShowOutputWindow(windowName, data string, size fyne.Size) {
+	outputWindow := (*window.Application).NewWindow(windowName)
+	outputWindow.Resize(size)
+
+	label := widget.NewLabel(data)
+	label.Wrapping = fyne.TextWrapWord
+	label.Resize(fyne.NewSize(300, 300))
+	scrollContainer := container.NewScroll(label)
+	outputWindow.SetContent(scrollContainer)
+	outputWindow.Show()
 }
 
 func (window *MainWindow) CombinationsButton() {
@@ -53,14 +66,15 @@ func (window *MainWindow) CombinationsButton() {
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
 		set, err := set.GenerateSet(input.Text)
 		if err != nil {
-			window.RunErrorWindow(fmt.Sprintf("%v", err)) // why did I do it this way instead of passing error? Fix it in the future
+			window.RunErrorWindow(err)
 			return
 		}
 		set.GenerateCombinations()
-		fmt.Println("Combinations of inserted set: ")
+		combinations := "Combinations of inserted set:\n"
 		for _, combination := range set.Combinations {
-			fmt.Println(combination)
+			combinations += fmt.Sprintln(combination)
 		}
+		window.ShowOutputWindow("All combinations of inserted set", combinations, fyne.NewSize(400, 300))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)
@@ -75,11 +89,12 @@ func (window *MainWindow) PermutationFromInversionSequenceButton() {
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
 		invSeq, err := set.CreateInversionSequence(input.Text)
 		if err != nil {
-			window.RunErrorWindow(fmt.Sprintf("%v", err))
+			window.RunErrorWindow(err)
 			return
 		}
 		perm := invSeq.GeneratePermutation()
-		fmt.Printf("The permutation generated from ("+input.Text+") is "+"%v\n", perm)
+		combination := fmt.Sprintf("The permutation generated from ("+input.Text+") is: "+"%v\n", perm)
+		window.ShowOutputWindow("Combination genereted from inversion sequence", combination, fyne.NewSize(600, 100))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)
@@ -94,18 +109,19 @@ func (window *MainWindow) PermutationsButton() {
 	content := container.NewVBox(input, widget.NewButton("Confirm", func() {
 		set, err := set.GenerateSet(input.Text)
 		if err != nil {
-			window.RunErrorWindow(fmt.Sprintf("%v", err))
+			window.RunErrorWindow(err)
 			return
 		}
 		set.GenerateAllPermutations()
+		permutations := ""
 		for _, permutation := range set.Permutations {
 			perm := []int{}
 			for _, elem := range permutation {
 				perm = append(perm, elem.Number)
 			}
-			fmt.Println(perm)
+			permutations += fmt.Sprintln(perm)
 		}
-		fmt.Printf("%v permutations generated\n", len(set.Permutations))
+		window.ShowOutputWindow("All permutations of inserted set", permutations, fyne.NewSize(400, 300))
 	}))
 	entryWindow.Resize(fyne.NewSize(640, 100))
 	entryWindow.SetContent(content)

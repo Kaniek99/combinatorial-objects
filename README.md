@@ -12,4 +12,4 @@ To run this app you need to clone this repository and run comand `go run .` insi
 
 #  Limitations
 
-Please note that it takes more time to print all permutations of an 8 element set (40320 sequences) we need more time than to just generate them.
+Please note that it takes more time to print all permutations of an 8 element set (40320 sequences) than to just generate them.

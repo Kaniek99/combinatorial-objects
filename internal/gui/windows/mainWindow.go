@@ -1,12 +1,3 @@
-// FIXME: HUGE PERFORMANCE DROP
-// For generating all permutations of a set of at least 8 elements there is huge
-// performance drop. Waiting for all permutations of {1, 2, 3, 4, 5, 6, 7, 8, 9}
-// takes more than one minute a few seconds.
-// Same problem for generating combinations of set of at least 13 elements.
-// I'm not sure if I'm even able to fix it somehow. Printing 3628800 elems takes
-// too long (more than 10 minutes). This value is equal to the value of all
-// permutations of the ten-element set.
-
 package windows
 
 import (
@@ -67,7 +58,6 @@ func (window *MainWindow) ShowOutputWindow(windowName, data string, size fyne.Si
 	outputWindow.Show()
 }
 
-// FIXME: Problem of performance drop reappeared, look comments lines 1-8
 func (window *MainWindow) CombinationsButton() {
 	entryWindow := (*window.Application).NewWindow("EntryWidget")
 	input := widget.NewEntry()
@@ -114,7 +104,6 @@ func (window *MainWindow) PermutationFromInversionSequenceButton() {
 	entryWindow.Show()
 }
 
-// FIXME: Problem of performance drop reappeared, look comments lines 1-8
 func (window *MainWindow) PermutationsButton() {
 	entryWindow := (*window.Application).NewWindow("EntryWidget")
 	input := widget.NewEntry()
@@ -133,7 +122,6 @@ func (window *MainWindow) PermutationsButton() {
 			for _, elem := range permutation {
 				perm = append(perm, elem.Number)
 			}
-			// fmt.Println(perm) // this line is for performance comparison
 			permutations += fmt.Sprintln(perm)
 		}
 		// window.ShowOutputWindow("All permutations of inserted set", permutations, fyne.NewSize(400, 300))

@@ -26,9 +26,9 @@ func TestGenerateSet(t *testing.T) {
 	}
 }
 
-func TestUniqueElems(t *testing.T) {
+func TestMakesElemsUnique(t *testing.T) {
 	set := Set{Elems: []int{1, 1, 1, 2, 3, 4, 5, 6, 1, 1, 1, 1, 2, 3}}
-	set.UniqueElems()
+	set.MakesElemsUnique()
 	if len(set.Elems) != 6 {
 		t.Errorf("expected set: %v, got: %v", []int{1, 2, 3, 4, 5, 6}, set.Elems)
 	}

@@ -25,9 +25,9 @@ type Set struct {
 }
 
 func GenerateSet(input string) (Set, error) {
-	elemsAsStrings := strings.Split(input, ", ")
+	elemsAsString := strings.Split(input, ", ")
 	set := Set{}
-	for _, elem := range elemsAsStrings {
+	for _, elem := range elemsAsString {
 		el, err := strconv.Atoi(elem)
 		if err != nil {
 			e := fmt.Errorf("check that the inserted numbers are separated by a comma and a space")
@@ -35,13 +35,13 @@ func GenerateSet(input string) (Set, error) {
 		}
 		set.Elems = append(set.Elems, el)
 	}
-	set.UniqueElems()
+	set.MakesElemsUnique()
 	sort.Ints(set.Elems)
 	set.Cardinality = len(set.Elems)
 	return set, nil
 }
 
-func (set *Set) UniqueElems() {
+func (set *Set) MakesElemsUnique() {
 	keys := make(map[int]bool)
 	elems := []int{}
 	for _, entry := range set.Elems {
